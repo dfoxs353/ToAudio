@@ -53,6 +53,10 @@ fun SignInView(
     Box(
         modifier = modifier,
     ){
+        if (isProgress){
+            LoginCircularDialog(titleText = stringResource(id = R.string.enter))
+        }
+
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -156,10 +160,6 @@ fun SignInView(
                     )
                 }
             }
-        }
-        
-        if (isProgress){
-            LoginCircularDialog(titleText = stringResource(id = R.string.enter))
         }
     }
 }

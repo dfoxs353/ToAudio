@@ -15,9 +15,6 @@ class LocalUserRepository @Inject constructor(
     private val KEY_USER_ID = "user_id"
     private val KEY_USER_NAME = "user_name"
 
-    //TODO delete user password from sharedPreferences
-    private val KEY_USER_PASSWORD = "user_password"
-
     private val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
     private val _userFlow = MutableStateFlow<User?>(null)
@@ -30,7 +27,6 @@ class LocalUserRepository @Inject constructor(
     fun saveUser(user: User) {
         with(editor) {
             putString(KEY_USER_ID, user.userid)
-            putString(KEY_USER_PASSWORD, user.userPassword)
             putString(KEY_ACCESS_TOKEN, user.accessToken)
             putString(KEY_USER_NAME, user.userName)
             apply()
@@ -41,16 +37,14 @@ class LocalUserRepository @Inject constructor(
 
     fun getUser(): User? {
         val userId = getUserId()
-        val userPassword = getUserPassword()
         val accessToken = getAccessToken()
         val userName = getUserName()
 
 
-        return if (userId.isNullOrEmpty() || userPassword.isNullOrEmpty() || accessToken.isNullOrEmpty() || userName.isNullOrEmpty()) {
+        return if (userId.isNullOrEmpty() || accessToken.isNullOrEmpty() || userName.isNullOrEmpty()) {
             null
         } else User(
             userid = userId,
-            userPassword = userPassword,
             accessToken = accessToken,
             userName = userName,
         )
@@ -73,11 +67,6 @@ class LocalUserRepository @Inject constructor(
         return sharedPreferences.getString(KEY_USER_NAME, null)
     }
 
-    fun getUserPassword(): String? {
-        return sharedPreferences.getString(KEY_USER_PASSWORD, null)
-    }
-
-
     fun getAccessToken(): String? {
         return sharedPreferences.getString(KEY_ACCESS_TOKEN, null)
     }
@@ -86,7 +75,6 @@ class LocalUserRepository @Inject constructor(
         with(editor) {
             remove(KEY_ACCESS_TOKEN)
             remove(KEY_USER_ID)
-            remove(KEY_USER_PASSWORD)
             remove(KEY_USER_NAME)
             apply()
         }

@@ -4,24 +4,36 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.toaudio.R
 import com.example.toaudio.common.EventHandler
+import com.example.toaudio.data.local.User
+import com.example.toaudio.data.model.Result
+import com.example.toaudio.data.remote.auth.AuthResponse
+import com.example.toaudio.data.remote.auth.AuthResult
 import com.example.toaudio.data.repository.AuthRepository
+import com.example.toaudio.data.repository.LocalUserRepository
 import com.example.toaudio.ui.screens.login.models.LoginEvent
 import com.example.toaudio.ui.screens.login.models.LoginSubState
 import com.example.toaudio.ui.screens.login.models.LoginViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository,
+    private val userRepository: LocalUserRepository,
 ) : ViewModel(), EventHandler<LoginEvent> {
 
     private val _viewState = MutableLiveData(LoginViewState())
     val viewState: LiveData<LoginViewState>  = _viewState
+
+    private val resultChannel = Channel<Result<AuthResponse>>()
+    val authResults = resultChannel.receiveAsFlow()
 
 
     override fun obtainEvent(event: LoginEvent) {
@@ -49,10 +61,19 @@ class LoginViewModel @Inject constructor(
                _viewState.value?.copy(isProgress = true)
            )
 
-           val result = authRepository.login(
+           val result = authRepository.signin(
                username = _viewState.value!!.emailValue,
                password = _viewState.value!!.passwordValue
            )
+
+           when(result){
+               is Result.Error -> userRepository.clearUserData()
+               is Result.Success -> with(result.data){
+                   userRepository.saveUser(User(user.id,user.username,access_token))
+               }
+           }
+
+           resultChannel.send(result)
 
            _viewState.postValue(
                _viewState.value?.copy(isProgress = false)
@@ -65,7 +86,15 @@ class LoginViewModel @Inject constructor(
             _viewState.postValue(
                 _viewState.value?.copy(isProgress = true)
             )
-            delay(3000L)
+
+            val result = authRepository.signup(
+                username = _viewState.value!!.emailValue,
+                password = _viewState.value!!.passwordValue
+            )
+
+
+            resultChannel.send(result)
+
             _viewState.postValue(
                 _viewState.value?.copy(isProgress = false)
             )

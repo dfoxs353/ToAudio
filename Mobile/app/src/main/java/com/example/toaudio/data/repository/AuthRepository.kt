@@ -1,5 +1,6 @@
 package com.example.toaudio.data.repository
 
+import android.content.SharedPreferences
 import android.util.Log
 import com.example.toaudio.data.remote.auth.AuthApi
 import com.example.toaudio.data.remote.auth.AuthResponse
@@ -8,6 +9,7 @@ import com.example.toaudio.data.remote.auth.UserRegistrationRequest
 import com.example.toaudio.data.model.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import java.io.IOException
 
 class AuthRepository(
@@ -15,7 +17,7 @@ class AuthRepository(
     private val ioDispatcher: CoroutineDispatcher,
 ) {
 
-    suspend fun login(username: String, password: String): Result<AuthResponse> {
+    suspend fun signin(username: String, password: String): Result<AuthResponse> {
         return try {
             Result.Success(
                 withContext(ioDispatcher) {
@@ -25,7 +27,7 @@ class AuthRepository(
             )
         } catch (e: Exception) {
             Log.d("TAG", e.message.toString())
-            Result.Error(IOException("Error logging in", e))
+            Result.Error(exception = Exception("Error logging in" + e.message.toString()))
         }
     }
 
@@ -39,7 +41,7 @@ class AuthRepository(
             )
         } catch (e: Exception) {
             Log.d("TAG", e.message.toString())
-            Result.Error(IOException("Error signup in", e))
+            Result.Error(exception = Exception("Error logging in" + e.message.toString()))
         }
 
     }
@@ -54,7 +56,7 @@ class AuthRepository(
             )
         } catch (e: Exception) {
             Log.d("TAG", e.message.toString())
-            Result.Error(IOException("Error refresh", e))
+            Result.Error(exception = Exception("Error refresh" + e.message.toString()))
         }
     }
 
