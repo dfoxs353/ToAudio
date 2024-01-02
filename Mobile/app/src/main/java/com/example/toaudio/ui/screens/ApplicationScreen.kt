@@ -13,6 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.toaudio.ui.navigation.NavigationTree
 import com.example.toaudio.ui.screens.login.LoginScreen
 import com.example.toaudio.ui.screens.login.LoginViewModel
+import com.example.toaudio.ui.screens.rooms.RoomsScreen
+import com.example.toaudio.ui.screens.rooms.RoomsViewModel
 import com.example.toaudio.ui.screens.splash.SplashScreen
 
 @Composable
@@ -25,6 +27,16 @@ fun ApplicationScreen(){
         composable(NavigationTree.Login.name) {
             val loginViewModel = hiltViewModel<LoginViewModel>()
             LoginScreen(
+                modifier = Modifier
+                    .padding(horizontal = 44.dp)
+                    .fillMaxSize(),
+                loginViewModel = loginViewModel,
+                navController = navController,
+            )
+        }
+        composable(NavigationTree.Rooms.name){
+            val roomsViewModel = hiltViewModel<RoomsViewModel>()
+            RoomsScreen(
                 modifier = Modifier
                     .padding(horizontal = 44.dp)
                     .fillMaxSize(),

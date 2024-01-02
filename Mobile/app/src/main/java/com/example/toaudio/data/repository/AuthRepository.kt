@@ -27,7 +27,7 @@ class AuthRepository(
             )
         } catch (e: Exception) {
             Log.d("TAG", e.message.toString())
-            Result.Error(exception = Exception("Error logging in" + e.message.toString()))
+            Result.Error(exception = Exception( e.message))
         }
     }
 
@@ -41,7 +41,7 @@ class AuthRepository(
             )
         } catch (e: Exception) {
             Log.d("TAG", e.message.toString())
-            Result.Error(exception = Exception("Error logging in" + e.message.toString()))
+            Result.Error(exception = Exception( e.message))
         }
 
     }
@@ -56,7 +56,7 @@ class AuthRepository(
             )
         } catch (e: Exception) {
             Log.d("TAG", e.message.toString())
-            Result.Error(exception = Exception("Error refresh" + e.message.toString()))
+            Result.Error(exception = Exception( e.message))
         }
     }
 

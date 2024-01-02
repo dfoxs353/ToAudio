@@ -11,11 +11,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.toaudio.R
 import com.example.toaudio.data.model.Result
+import com.example.toaudio.ui.navigation.NavigationTree
 import com.example.toaudio.ui.screens.login.models.LoginEvent
 import com.example.toaudio.ui.screens.login.models.LoginSubState
 import com.example.toaudio.ui.screens.login.views.ForgotView
 import com.example.toaudio.ui.screens.login.views.SignInView
 import com.example.toaudio.ui.screens.login.views.SignUpView
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 
 @Composable
@@ -47,6 +49,8 @@ fun LoginScreen(
                         "$welcomeText ${result.data.user.username}",
                         Toast.LENGTH_LONG
                     ).show()
+                    delay(3000L)
+                    navController.navigate(NavigationTree.Rooms.name)
                 }
             }
         }

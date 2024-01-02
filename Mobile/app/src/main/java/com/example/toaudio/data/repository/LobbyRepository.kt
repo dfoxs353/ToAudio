@@ -23,7 +23,7 @@ class LobbyRepository(
             )
         } catch (e: Exception) {
             Log.d("TAG", e.message.toString())
-            Result.Error(Exception("Error get lobby " + e.message.toString()))
+            Result.Error(Exception( e.message))
         }
     }
 
