@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.toaudio.R
+import com.example.toaudio.ui.components.LoginCircularDialog
 import com.example.toaudio.ui.components.TextInput
 
 @Composable
@@ -41,6 +42,11 @@ fun SignUpView(
     signInClick: () -> Unit,
     isProgress: Boolean = false,
 ) {
+
+
+    if (isProgress){
+        LoginCircularDialog(titleText = stringResource(id = R.string.enter))
+    }
 
     Box(
         modifier = modifier
