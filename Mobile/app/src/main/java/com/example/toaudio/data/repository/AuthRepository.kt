@@ -48,7 +48,7 @@ class AuthRepository(
         return try {
             Result.Success(
                 withContext(ioDispatcher) {
-                    val response = authDataSource.refresh(token)
+                    val response = authDataSource.refresh()
                     response.await()
                 }
             )

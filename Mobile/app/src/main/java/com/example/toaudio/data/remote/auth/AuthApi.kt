@@ -29,7 +29,5 @@ interface AuthApi {
 
     @GET("api/Account/RefreshTokens")
     @Headers("Content-Type: application/json")
-    fun refresh(
-        @Header("Authorization") token: String,
-    ): Deferred<AuthResponse>
+    fun refresh(): Deferred<AuthResponse>
 }

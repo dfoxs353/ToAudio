@@ -21,14 +21,15 @@ import java.io.IOException
 import javax.inject.Inject
 
 class AuthAuthenticator @Inject constructor(
-    private val userRepository: LocalUserRepository
+    private val userRepository: LocalUserRepository,
+    private val baseUrl: String,
 ) : Authenticator {
 
 
     override fun authenticate(route: Route?, response: Response): Request? {
         return runBlocking {
             val token = userRepository.getAccessToken()
-            when (val newToken = getNewToken(token)) {
+            when (val newToken = getNewToken()) {
                 is Result.Success -> {
                     newToken.data.apply {
                         userRepository.saveJWToken(access_token)
@@ -45,14 +46,14 @@ class AuthAuthenticator @Inject constructor(
         }
     }
 
-    private suspend fun getNewToken(refreshToken: String?): Result<AuthResponse> {
+    private suspend fun getNewToken(): Result<AuthResponse> {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:80/")
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(okHttpClient)
@@ -61,7 +62,7 @@ class AuthAuthenticator @Inject constructor(
         return try {
             Result.Success(
                 withContext(Dispatchers.IO) {
-                    service.refresh(refreshToken!!).await()
+                    service.refresh().await()
                 }
             )
         } catch (e: Exception) {

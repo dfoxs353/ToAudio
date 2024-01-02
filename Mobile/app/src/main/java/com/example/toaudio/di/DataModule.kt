@@ -29,6 +29,9 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class DataModule {
 
+    private companion object{
+        val baseUrl = "http://10.0.2.2:80/"
+    }
     @Provides
     @Singleton
     fun provideLocalUserRepository(sharedPreferences: SharedPreferences): LocalUserRepository {
@@ -50,7 +53,7 @@ class DataModule {
     @Singleton
     @Provides
     fun provideAuthAuthenticator(tokenManager: LocalUserRepository): AuthAuthenticator =
-        AuthAuthenticator(tokenManager)
+        AuthAuthenticator(tokenManager,baseUrl)
 
     @Singleton
     @Provides
@@ -73,7 +76,7 @@ class DataModule {
     @Provides
     fun provideRetrofitBuilder(): Retrofit.Builder =
         Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:80/")
+            .baseUrl(baseUrl)
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
 
