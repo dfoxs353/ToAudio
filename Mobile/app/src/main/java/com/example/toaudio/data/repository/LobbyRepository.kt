@@ -3,10 +3,9 @@ package com.example.toaudio.data.repository
 import android.util.Log
 import com.example.toaudio.data.remote.lobby.LobbyApi
 import com.example.toaudio.data.remote.lobby.LobbyResponse
-import com.example.toaudio.data.model.Result
+import com.example.toaudio.data.models.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import java.io.IOException
 
 class LobbyRepository(
     private val lobbyDataSource: LobbyApi,

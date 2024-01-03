@@ -1,16 +1,13 @@
 package com.example.toaudio.data.repository
 
-import android.content.SharedPreferences
 import android.util.Log
 import com.example.toaudio.data.remote.auth.AuthApi
 import com.example.toaudio.data.remote.auth.AuthResponse
 import com.example.toaudio.data.remote.auth.UserLoginRequest
 import com.example.toaudio.data.remote.auth.UserRegistrationRequest
-import com.example.toaudio.data.model.Result
+import com.example.toaudio.data.models.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
-import java.io.IOException
 
 class AuthRepository(
     private val authDataSource: AuthApi,

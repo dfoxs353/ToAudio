@@ -1,7 +1,7 @@
 package com.example.toaudio.data.repository
 
 import android.content.SharedPreferences
-import com.example.toaudio.data.local.User
+import com.example.toaudio.data.models.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -40,7 +40,7 @@ fun ApplicationScreen(){
                 modifier = Modifier
                     .padding(horizontal = 44.dp)
                     .fillMaxSize(),
-                loginViewModel = loginViewModel,
+                roomsViewModel = roomsViewModel,
                 navController = navController,
             )
         }

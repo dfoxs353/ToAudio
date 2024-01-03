@@ -4,12 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.toaudio.R
 import com.example.toaudio.common.EventHandler
-import com.example.toaudio.data.local.User
-import com.example.toaudio.data.model.Result
+import com.example.toaudio.data.models.User
+import com.example.toaudio.data.models.Result
 import com.example.toaudio.data.remote.auth.AuthResponse
-import com.example.toaudio.data.remote.auth.AuthResult
 import com.example.toaudio.data.repository.AuthRepository
 import com.example.toaudio.data.repository.LocalUserRepository
 import com.example.toaudio.ui.screens.login.models.LoginEvent
@@ -18,7 +16,6 @@ import com.example.toaudio.ui.screens.login.models.LoginViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject

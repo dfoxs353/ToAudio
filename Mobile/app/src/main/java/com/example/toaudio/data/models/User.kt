@@ -1,4 +1,4 @@
-package com.example.toaudio.data.local
+package com.example.toaudio.data.models
 
 data class User(
     val userid: String,

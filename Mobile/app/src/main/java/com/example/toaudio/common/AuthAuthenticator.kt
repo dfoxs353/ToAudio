@@ -5,7 +5,7 @@ import com.example.toaudio.data.remote.auth.AuthApi
 import com.example.toaudio.data.remote.auth.AuthResponse
 import com.example.toaudio.data.repository.LocalUserRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.example.toaudio.data.model.Result
+import com.example.toaudio.data.models.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
