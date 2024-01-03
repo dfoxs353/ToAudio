@@ -6,7 +6,7 @@ enum class LoginSubState{
 }
 data class LoginViewState (
     var loginSubState: LoginSubState = LoginSubState.SignIn,
-    var emailValue: String = "",
+    var usernameValue: String = "",
     var passwordValue: String = "",
     var fullNameValue: String = "",
     var isProgress: Boolean = false,

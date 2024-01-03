@@ -35,9 +35,9 @@ class LoginViewModel @Inject constructor(
 
     override fun obtainEvent(event: LoginEvent) {
         when(event){
-            LoginEvent.SignInClicked -> logIn()
+            LoginEvent.SignInClicked -> signIn()
             is LoginEvent.SignUpClicked -> signUp()
-            is LoginEvent.EmailChanged -> emailChanged(event.value)
+            is LoginEvent.UserNameChanged -> usernameChanged(event.value)
             is LoginEvent.PasswordChanged -> passwordChanged(event.value)
             is LoginEvent.ActionSwitch -> actionSwitch()
         }
@@ -52,14 +52,14 @@ class LoginViewModel @Inject constructor(
     }
 
 
-    private fun logIn() {
+    private fun signIn() {
        viewModelScope.launch(Dispatchers.IO) {
            _viewState.postValue(
                _viewState.value?.copy(isProgress = true)
            )
 
            val result = authRepository.signin(
-               username = _viewState.value!!.emailValue,
+               username = _viewState.value!!.usernameValue,
                password = _viewState.value!!.passwordValue
            )
 
@@ -85,7 +85,7 @@ class LoginViewModel @Inject constructor(
             )
 
             val result = authRepository.signup(
-                username = _viewState.value!!.emailValue,
+                username = _viewState.value!!.usernameValue,
                 password = _viewState.value!!.passwordValue
             )
 
@@ -103,9 +103,9 @@ class LoginViewModel @Inject constructor(
         )
     }
 
-    private fun emailChanged(value: String) {
+    private fun usernameChanged(value: String) {
         _viewState.postValue(
-            _viewState.value?.copy(emailValue = value)
+            _viewState.value?.copy(usernameValue = value)
         )
     }
 

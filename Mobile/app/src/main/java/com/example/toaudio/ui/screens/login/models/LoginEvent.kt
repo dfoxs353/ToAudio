@@ -4,6 +4,6 @@ sealed class LoginEvent {
     object ActionSwitch: LoginEvent()
     object SignInClicked : LoginEvent()
     object SignUpClicked : LoginEvent()
-    data class EmailChanged(val value: String) : LoginEvent()
+    data class UserNameChanged(val value: String) : LoginEvent()
     data class PasswordChanged(val value: String): LoginEvent()
 }

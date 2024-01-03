@@ -62,9 +62,9 @@ fun LoginScreen(
             when(loginSubState){
                 LoginSubState.SignIn -> {
                     SignInView(
-                        emailValue = emailValue,
+                        emailValue = usernameValue,
                         passwordValue = passwordValue,
-                        onUserNameFieldChange = { loginViewModel.obtainEvent(LoginEvent.EmailChanged(it)) },
+                        onUserNameFieldChange = { loginViewModel.obtainEvent(LoginEvent.UserNameChanged(it)) },
                         onPasswordFieldChange = {  loginViewModel.obtainEvent(LoginEvent.PasswordChanged(it)) },
                         signInClick = {loginViewModel.obtainEvent(LoginEvent.SignInClicked)},
                         signUpClick = {loginViewModel.obtainEvent(LoginEvent.ActionSwitch)},
@@ -73,9 +73,9 @@ fun LoginScreen(
                 }
                 LoginSubState.SignUp -> {
                     SignUpView(
-                        emailValue = emailValue,
+                        emailValue = usernameValue,
                         passwordValue = passwordValue,
-                        onUserNameFieldChange = { loginViewModel.obtainEvent(LoginEvent.EmailChanged(it)) },
+                        onUserNameFieldChange = { loginViewModel.obtainEvent(LoginEvent.UserNameChanged(it)) },
                         onPasswordFieldChange = {  loginViewModel.obtainEvent(LoginEvent.PasswordChanged(it)) },
                         signUpClick = {loginViewModel.obtainEvent(LoginEvent.SignUpClicked)},
                         signInClick = {loginViewModel.obtainEvent(LoginEvent.ActionSwitch)},
