@@ -10,25 +10,41 @@ import androidx.compose.ui.unit.sp
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
+        fontWeight = FontWeight(400),
+        fontSize = 17.sp,
+        lineHeight = 22.sp,
         letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
+    ),
+
+    titleSmall = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
+        fontWeight = FontWeight(600),
+        fontSize = 20.5.sp,
+        lineHeight = 25.5.sp,
         letterSpacing = 0.sp
     ),
+
+    titleMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight(600),
+        fontSize = 25.sp,
+        lineHeight = 32.sp,
+        letterSpacing = 0.sp
+    ),
+
+    titleLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight(600),
+        fontSize = 30.5.sp,
+        lineHeight = 35.sp,
+        letterSpacing = 0.sp
+    ),
+
     labelSmall = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
+        fontWeight = FontWeight(400),
+        fontSize = 14.sp,
+        lineHeight = 18.sp,
         letterSpacing = 0.5.sp
     )
-    */
 )
