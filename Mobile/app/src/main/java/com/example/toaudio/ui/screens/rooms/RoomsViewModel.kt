@@ -5,11 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.toaudio.common.EventHandler
+import com.example.toaudio.data.models.Result
+import com.example.toaudio.data.remote.auth.AuthResponse
+import com.example.toaudio.data.remote.room.RoomResponse
 import com.example.toaudio.data.repository.RoomRepository
 import com.example.toaudio.ui.screens.rooms.models.RoomsEvent
 import com.example.toaudio.ui.screens.rooms.models.RoomsViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,8 +23,11 @@ class RoomsViewModel @Inject constructor(
     private val roomRepository: RoomRepository,
 ) : ViewModel(), EventHandler<RoomsEvent> {
 
-    private val _viewState =  MutableLiveData<RoomsViewState>()
+    private val _viewState =  MutableLiveData(RoomsViewState())
     val viewState: LiveData<RoomsViewState> = _viewState
+
+    private val _resultChannel = Channel<Result<RoomResponse>>()
+    val resultChannel = _resultChannel.receiveAsFlow()
     override fun obtainEvent(event: RoomsEvent) {
         when(event){
             RoomsEvent.CreateRoomsClicked -> createRoom()
@@ -37,10 +45,18 @@ class RoomsViewModel @Inject constructor(
     }
 
     private fun enterRoomById() {
-        TODO("Not yet implemented")
+        viewModelScope.launch(Dispatchers.IO) {
+            _resultChannel.send(Result.Success(
+                RoomResponse(roomId = _viewState.value!!.roomIdValue)
+            ))
+        }
     }
 
     private fun createRoom() {
-        TODO("Not yet implemented")
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = roomRepository.getRoom()
+
+            _resultChannel.send(result)
+        }
     }
 }

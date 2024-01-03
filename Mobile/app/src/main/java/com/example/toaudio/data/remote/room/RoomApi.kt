@@ -8,6 +8,6 @@ interface RoomApi {
 
     @POST("/api/Room")
     @Headers("Content-Type: application/json")
-    fun getRoom(): Deferred<LobbyResponse>
+    fun getRoom(): Deferred<RoomResponse>
 
 }
