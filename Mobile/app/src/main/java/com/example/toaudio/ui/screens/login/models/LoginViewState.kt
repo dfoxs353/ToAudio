@@ -5,9 +5,9 @@ enum class LoginSubState{
     SignIn, SignUp, Forgot
 }
 data class LoginViewState (
-    var loginSubState: LoginSubState = LoginSubState.SignIn,
-    var usernameValue: String = "",
-    var passwordValue: String = "",
-    var fullNameValue: String = "",
-    var isProgress: Boolean = false,
+    val loginSubState: LoginSubState = LoginSubState.SignIn,
+    val usernameValue: String = "",
+    val passwordValue: String = "",
+    val fullNameValue: String = "",
+    val isProgress: Boolean = false,
 )

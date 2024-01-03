@@ -5,6 +5,6 @@ enum class RoomsSubState{
 }
 
 data class RoomsViewState(
-    var roomsViewSubState: RoomsSubState  = RoomsSubState.CustomRooms,
-    var roomIdValue: String = "",
+    val roomsViewSubState: RoomsSubState  = RoomsSubState.CustomRooms,
+    val roomIdValue: String = "",
 )
