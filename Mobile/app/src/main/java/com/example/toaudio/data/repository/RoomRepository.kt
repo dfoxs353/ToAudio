@@ -1,22 +1,22 @@
 package com.example.toaudio.data.repository
 
 import android.util.Log
-import com.example.toaudio.data.remote.lobby.LobbyApi
-import com.example.toaudio.data.remote.lobby.LobbyResponse
+import com.example.toaudio.data.remote.room.RoomApi
 import com.example.toaudio.data.models.Result
+import com.example.toaudio.data.remote.room.RoomResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-class LobbyRepository(
-    private val lobbyDataSource: LobbyApi,
+class RoomRepository(
+    private val roomDataSource: RoomApi,
     private val ioDispatcher: CoroutineDispatcher,
 ) {
 
-    suspend fun getRoom(): Result<LobbyResponse> {
+    suspend fun getRoom(): Result<RoomResponse> {
         return try {
             Result.Success(
                 withContext(ioDispatcher) {
-                    val response = lobbyDataSource.getRoom()
+                    val response = roomDataSource.getRoom()
                     response.await()
                 }
             )

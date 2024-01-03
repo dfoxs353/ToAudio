@@ -5,10 +5,10 @@ import android.content.SharedPreferences
 import com.example.toaudio.common.AuthAuthenticator
 import com.example.toaudio.common.AuthInterceptor
 import com.example.toaudio.data.remote.auth.AuthApi
-import com.example.toaudio.data.remote.lobby.LobbyApi
+import com.example.toaudio.data.remote.room.RoomApi
 import com.example.toaudio.data.remote.websocket.WebSocketManager
 import com.example.toaudio.data.repository.AuthRepository
-import com.example.toaudio.data.repository.LobbyRepository
+import com.example.toaudio.data.repository.RoomRepository
 import com.example.toaudio.data.repository.LocalUserRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
@@ -96,17 +96,17 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideLobbyAPIService(retrofit: Builder, okHttpClient: OkHttpClient): LobbyApi =
+    fun provideRoomAPIService(retrofit: Builder, okHttpClient: OkHttpClient): RoomApi =
         retrofit
             .client(okHttpClient)
             .build()
-            .create(LobbyApi::class.java)
+            .create(RoomApi::class.java)
 
 
     @Singleton
     @Provides
-    fun provideLobbyRepository(lobbyApi: LobbyApi): LobbyRepository {
-        return LobbyRepository(lobbyApi, Dispatchers.IO)
+    fun provideRoomRepository(roomApi: RoomApi): RoomRepository {
+        return RoomRepository(roomApi, Dispatchers.IO)
     }
 
     @Singleton

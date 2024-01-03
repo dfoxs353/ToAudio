@@ -1,10 +1,10 @@
-package com.example.toaudio.data.remote.lobby
+package com.example.toaudio.data.remote.room
 
 import kotlinx.coroutines.Deferred
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
-interface LobbyApi {
+interface RoomApi {
 
     @POST("/api/Room")
     @Headers("Content-Type: application/json")

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.toaudio.common.EventHandler
-import com.example.toaudio.data.repository.LobbyRepository
+import com.example.toaudio.data.repository.RoomRepository
 import com.example.toaudio.ui.screens.rooms.models.RoomsEvent
 import com.example.toaudio.ui.screens.rooms.models.RoomsViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RoomsViewModel @Inject constructor(
-    private val lobbyRepository: LobbyRepository,
+    private val roomRepository: RoomRepository,
 ) : ViewModel(), EventHandler<RoomsEvent> {
 
     private val _viewState =  MutableLiveData<RoomsViewState>()
