@@ -37,6 +37,7 @@ fun RoomScreen(
                 messageValue = messageValue,
                 onMessageValueChanged = { roomViewModel.obtainEvent(RoomEvent.MessageValueChanged(it)) },
                 sendMessageClick = { roomViewModel.obtainEvent(RoomEvent.SendMessageClicked) },
+                roomId = roomId!!
             )
         }
     }

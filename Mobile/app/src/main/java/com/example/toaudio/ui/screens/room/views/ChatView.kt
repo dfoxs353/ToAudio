@@ -56,6 +56,7 @@ fun ChatView(
     messageValue: String,
     onMessageFieldChanged: (String) -> Unit,
     sendMessageClick: () -> Unit,
+    fullScreenClick: () -> Unit = {},
 ){
     Column(
         modifier = modifier,
@@ -63,7 +64,9 @@ fun ChatView(
 
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(start = 15.dp)
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
@@ -71,7 +74,7 @@ fun ChatView(
                 text = stringResource(id = R.string.chat),
                 style = MaterialTheme.typography.titleSmall
             )
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = fullScreenClick) {
                 Icon(painter = painterResource(id = R.drawable.gui_resize_full), contentDescription = "resize_full_chat")
             }
         }
@@ -80,7 +83,7 @@ fun ChatView(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(size = 10.dp))
-                .background(MaterialTheme.colorScheme.tertiary)
+                .background(MaterialTheme.colorScheme.surface)
                 .padding(10.dp),
             verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
@@ -168,7 +171,7 @@ fun MessageCard(
                     Text(
                         modifier = Modifier.padding(10.dp),
                         text = message.msg,
-                        style = MaterialTheme.typography.bodyLarge
+                        style = MaterialTheme.typography.bodyLarge,
                     )
                 }
             }
@@ -200,9 +203,8 @@ fun ChatView_Preview(){
                 MessageItem(Message("test","hi"),true),
             ),
             messageValue = "",
-            onMessageFieldChanged ={}
-        ) {
-
-        }
+            onMessageFieldChanged ={},
+            sendMessageClick = {},
+        )
     }
 }
