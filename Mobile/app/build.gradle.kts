@@ -57,9 +57,9 @@ dependencies {
     val okHttp_version = "4.8.0"
     val retrofit_version =  "2.9.0"
     val nav_version = "2.7.6"
-
     val lifecycle_version = "2.1.0"
     val compose_version = "0.1.0-dev02"
+    val media3_version = "1.2.0"
 
     implementation("androidx.core:core-ktx:1.8.10")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
@@ -103,4 +103,9 @@ dependencies {
     implementation ("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
     implementation ("com.squareup.okhttp3:okhttp:$okHttp_version")
     implementation ("com.squareup.okhttp3:logging-interceptor:$okHttp_version")
+
+    //ExoPlayer
+    implementation ("androidx.media3:media3-exoplayer:$media3_version")
+    implementation ("androidx.media3:media3-exoplayer-dash:$media3_version")
+    implementation ("androidx.media3:media3-ui:$media3_version")
 }
