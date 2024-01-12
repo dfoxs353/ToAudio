@@ -1,4 +1,4 @@
-package com.example.toaudio.webscoket
+package com.example.toaudio.data.remote.websocket
 
 import okhttp3.Response
 import okhttp3.WebSocket
