@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.toaudio.R
 import com.example.toaudio.ui.screens.room.models.RoomEvent
@@ -24,22 +25,25 @@ import com.example.toaudio.ui.screens.room.views.RoomView
 @Composable
 fun RoomScreen(
     modifier: Modifier  = Modifier,
-    roomViewModel: RoomViewModel,
+    roomViewModel: RoomViewModel = hiltViewModel(),
     navController: NavController,
-    roomId: String?,
 ){
     val viewState = roomViewModel.viewState.observeAsState()
     val musicPlayerViewState = roomViewModel.musicPlayerState.observeAsState()
-    
-    Surface {
+
+
+
+    Surface(
+        modifier = modifier
+    ) {
         with(viewState.value!!){
             RoomView(
                 messageList = messageList,
                 messageValue = messageValue,
                 onMessageValueChanged = { roomViewModel.obtainEvent(RoomEvent.MessageValueChanged(it)) },
                 sendMessageClick = { roomViewModel.obtainEvent(RoomEvent.SendMessageClicked) },
-                roomId = roomId!!,
                 musicPlayerViewState = musicPlayerViewState.value!!,
+                roomId = roomId,
             )
         }
     }

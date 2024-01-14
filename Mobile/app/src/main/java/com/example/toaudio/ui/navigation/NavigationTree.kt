@@ -1,5 +1,9 @@
 package com.example.toaudio.ui.navigation
 
-enum class NavigationTree {
-    Splash, Login, Rooms, Room,
+sealed class NavigationTree( val route: String) {
+    //Splash, Login, Rooms, Room,
+    object Splash : NavigationTree("splash")
+    object Login : NavigationTree("login")
+    object Rooms : NavigationTree("rooms")
+    object Room : NavigationTree("room")
 }

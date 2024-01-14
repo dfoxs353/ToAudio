@@ -49,7 +49,7 @@ fun LoginScreen(
                         Toast.LENGTH_LONG
                     ).show()
                     delay(3000L)
-                    navController.navigate(NavigationTree.Rooms.name)
+                    navController.navigate(NavigationTree.Rooms.route)
                 }
             }
         }

@@ -25,10 +25,10 @@ import com.example.toaudio.ui.screens.splash.SplashScreen
 fun ApplicationScreen(){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = NavigationTree.Splash.name){
+    NavHost(navController = navController, startDestination = NavigationTree.Splash.route){
 
-        composable(NavigationTree.Splash.name){ SplashScreen(navController) }
-        composable(NavigationTree.Login.name) {
+        composable(NavigationTree.Splash.route){ SplashScreen(navController) }
+        composable(NavigationTree.Login.route) {
             val loginViewModel = hiltViewModel<LoginViewModel>()
             LoginScreen(
                 modifier = Modifier
@@ -38,7 +38,7 @@ fun ApplicationScreen(){
                 navController = navController,
             )
         }
-        composable(NavigationTree.Rooms.name){
+        composable(NavigationTree.Rooms.route){
             val roomsViewModel = hiltViewModel<RoomsViewModel>()
             RoomsScreen(
                 modifier = Modifier
@@ -49,18 +49,14 @@ fun ApplicationScreen(){
             )
         }
         composable(
-            "${NavigationTree.Room.name}/{roomId}",
+            "${NavigationTree.Room.route}/{roomId}",
             arguments = listOf(navArgument("roomId"){type = NavType.StringType})
-        ){backStackEntry ->
-            val roomId = backStackEntry.arguments?.getString("roomId")
-            val  roomViewModel = hiltViewModel<RoomViewModel>()
+        ){
             RoomScreen(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
                     .fillMaxSize(),
-                roomViewModel = roomViewModel,
                 navController = navController,
-                roomId = roomId,
             )
         }
 

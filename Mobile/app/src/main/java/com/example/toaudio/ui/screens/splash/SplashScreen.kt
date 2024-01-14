@@ -13,6 +13,6 @@ fun SplashScreen(
 ){
     LaunchedEffect(key1 = Unit, block = {
         delay(1000L)
-        navController.navigate(NavigationTree.Login.name)
+        navController.navigate(NavigationTree.Login.route)
     })
 }
