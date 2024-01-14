@@ -29,6 +29,7 @@ fun RoomScreen(
     roomId: String?,
 ){
     val viewState = roomViewModel.viewState.observeAsState()
+    val musicPlayerViewState = roomViewModel.musicPlayerState.observeAsState()
     
     Surface {
         with(viewState.value!!){
@@ -37,7 +38,8 @@ fun RoomScreen(
                 messageValue = messageValue,
                 onMessageValueChanged = { roomViewModel.obtainEvent(RoomEvent.MessageValueChanged(it)) },
                 sendMessageClick = { roomViewModel.obtainEvent(RoomEvent.SendMessageClicked) },
-                roomId = roomId!!
+                roomId = roomId!!,
+                musicPlayerViewState = musicPlayerViewState.value!!,
             )
         }
     }

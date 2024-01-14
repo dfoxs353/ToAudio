@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.toaudio.common.EventHandler
 import com.example.toaudio.data.remote.websocket.WebSocketManager
-import com.example.toaudio.ui.screens.login.models.LoginEvent
+import com.example.toaudio.ui.screens.player.models.MusicPlayerViewState
 import com.example.toaudio.ui.screens.room.models.RoomEvent
 import com.example.toaudio.ui.screens.room.models.RoomViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,10 +23,14 @@ class RoomViewModel @Inject constructor(
     private val _viewState = MutableLiveData(RoomViewState())
     val viewState: LiveData<RoomViewState> = _viewState
 
+    private val _musicPlayerState = MutableLiveData(MusicPlayerViewState())
+    val musicPlayerState: LiveData<MusicPlayerViewState> = _musicPlayerState
+
     private var chatWebSocket: WebSocket? = null
 
     init {
         chatWebSocket = webSocketManager.createChatWebSocket("ws://10.0.2.2:80/ws", "${viewState.value?.roomId}/chat")
+
     }
 
     override fun obtainEvent(event: RoomEvent) {
