@@ -113,8 +113,9 @@ class DataModule {
     @Provides
     fun provideWebsocketManager(): WebSocketManager {
         return WebSocketManager(
-            OkHttpClient.Builder()
-                .build()
+            okHttpClient = OkHttpClient.Builder()
+                .build(),
+            baseUrl = baseUrl,
         )
     }
 

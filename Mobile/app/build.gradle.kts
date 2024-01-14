@@ -4,6 +4,7 @@ plugins {
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -62,7 +63,6 @@ dependencies {
     val compose_version = "0.1.0-dev02"
     val media3_version = "1.2.0"
     val coil_version = "2.5.0"
-    val material3_version = "1.1.2"
 
     implementation("androidx.core:core-ktx:1.8.10")
     implementation ("androidx.compose.material:material:$compose_version")
@@ -81,6 +81,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
     // ViewModel and LiveData
     implementation("androidx.compose.runtime:runtime-livedata:$compose_version")

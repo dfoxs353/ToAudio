@@ -4,31 +4,34 @@ import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
+import okhttp3.WebSocketListener
+import javax.inject.Inject
 
-class WebSocketManager(
+class WebSocketManager @Inject constructor(
     private val okHttpClient: OkHttpClient,
+    private val baseUrl: String,
 ){
 
-    fun createWebSocket(baseUrl: String, endpoint: String): WebSocket {
-        val url = "$baseUrl/$endpoint"
-        Log.d("WEBSOCKET", url)
-        val request = Request.Builder().url(url).build()
-        return okHttpClient.newWebSocket(request, AppWebSocketListener(endpoint))
-    }
 
-    fun createChatWebSocket(baseUrl: String, endpoint: String): WebSocket {
-        val url = "$baseUrl/$endpoint"
+
+    fun createChatWebSocket(socketId: String, listener: WebSocketListener): WebSocket {
+        val url = "$baseUrl/$socketId/${WebSocketRoot.Chat.route}"
         Log.d("WEBSOCKET", url)
         val request = Request.Builder().url(url).build()
-        return okHttpClient.newWebSocket(request, ChatWebSocketHandler())
+        return okHttpClient.newWebSocket(request, listener)
     }
 
 
-    fun createFileWebSocket(baseUrl: String, endpoint: String): WebSocket {
-        val url = "$baseUrl/$endpoint"
+    fun createFileWebSocket(socketId: String, listener: WebSocketListener): WebSocket {
+        val url = "$baseUrl/$socketId/${WebSocketRoot.File.route}"
         Log.d("WEBSOCKET", url)
         val request = Request.Builder().url(url).build()
-        return okHttpClient.newWebSocket(request, AppWebSocketListener(endpoint))
+        return okHttpClient.newWebSocket(request, listener)
     }
 
+}
+
+sealed class WebSocketRoot(val route: String){
+    object Chat : WebSocketRoot(route = "chat")
+    object File : WebSocketRoot(route = "file")
 }

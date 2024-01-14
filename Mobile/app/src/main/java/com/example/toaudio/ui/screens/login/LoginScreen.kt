@@ -29,7 +29,7 @@ fun LoginScreen(
 
     val context = LocalContext.current
     val welcomeText = stringResource(id = R.string.welcome)
-    val errorText = stringResource(id = R.string.error_string)
+    val errorText = stringResource(id = R.string.error_auth_string)
 
     LaunchedEffect(loginViewModel, context) {
         loginViewModel.authResults.collect{result ->
