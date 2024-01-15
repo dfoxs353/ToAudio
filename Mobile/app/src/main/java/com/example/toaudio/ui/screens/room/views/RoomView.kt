@@ -38,6 +38,7 @@ import com.example.toaudio.ui.components.CopyText
 import com.example.toaudio.ui.components.LogoWithText
 import com.example.toaudio.data.models.TextMessage
 import com.example.toaudio.data.models.MessageItem
+import com.example.toaudio.data.remote.websocket.ChatState
 import com.example.toaudio.ui.screens.player.models.MusicPlayerViewState
 import com.example.toaudio.ui.screens.player.views.MusicPlayerView
 import com.example.toaudio.ui.theme.ToAudioTheme
@@ -49,6 +50,7 @@ import kotlinx.coroutines.launch
 fun RoomView(
     modifier: Modifier = Modifier,
     messageList: List<MessageItem>,
+    membersList: List<String> = listOf(),
     messageValue: String,
     musicPlayerViewState: MusicPlayerViewState,
     onMessageValueChanged: (String) -> Unit,
@@ -153,6 +155,8 @@ fun RoomView(
                     fullScreenClick = {
                         isMembersFullScreen = !isMembersFullScreen
                     },
+                    isMembersFullScreen = isMembersFullScreen,
+                    membersList = membersList,
                 )
 
             }

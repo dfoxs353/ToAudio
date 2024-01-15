@@ -40,6 +40,7 @@ fun RoomScreen(
             RoomView(
                 messageList = messageList,
                 messageValue = messageValue,
+                membersList = memberList,
                 onMessageValueChanged = { roomViewModel.obtainEvent(RoomEvent.MessageValueChanged(it)) },
                 sendMessageClick = { roomViewModel.obtainEvent(RoomEvent.SendMessageClicked) },
                 musicPlayerViewState = musicPlayerViewState.value!!,
