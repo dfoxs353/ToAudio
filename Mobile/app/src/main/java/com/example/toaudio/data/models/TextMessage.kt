@@ -5,11 +5,11 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @Serializable
-data class Message(
+data class TextMessage(
     val username: String = "",
     val msg: String = "",
 )
 
-fun Message.toJson() : String{
-    return Json.encodeToString(Message(username,msg))
+fun TextMessage.toJson() : String{
+    return Json.encodeToString(TextMessage(username,msg))
 }

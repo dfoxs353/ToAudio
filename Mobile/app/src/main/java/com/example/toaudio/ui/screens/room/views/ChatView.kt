@@ -29,7 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.toaudio.R
-import com.example.toaudio.data.models.Message
+import com.example.toaudio.data.models.TextMessage
 import com.example.toaudio.data.models.MessageItem
 import com.example.toaudio.ui.theme.ToAudioTheme
 
@@ -176,17 +176,17 @@ fun ChatView_Preview(){
                 .height(400.dp)
                 .padding(44.dp),
             messageList = listOf(
-                MessageItem(Message("test","hi"),false),
-                MessageItem(Message("test","hi"),true),
-                MessageItem(Message("test","hi"),false),
-                MessageItem(Message("test","hi"),true),
-                MessageItem(Message("test","hi"),true),
-                MessageItem(Message("test","hi"),false),
-                MessageItem(Message("test","hi"),true),
-                MessageItem(Message("test","hi"),true),
-                MessageItem(Message("test","hi"),true),
-                MessageItem(Message("test","hi"),false),
-                MessageItem(Message("test","hi"),true),
+                MessageItem(TextMessage("test","hi"),false),
+                MessageItem(TextMessage("test","hi"),true),
+                MessageItem(TextMessage("test","hi"),false),
+                MessageItem(TextMessage("test","hi"),true),
+                MessageItem(TextMessage("test","hi"),true),
+                MessageItem(TextMessage("test","hi"),false),
+                MessageItem(TextMessage("test","hi"),true),
+                MessageItem(TextMessage("test","hi"),true),
+                MessageItem(TextMessage("test","hi"),true),
+                MessageItem(TextMessage("test","hi"),false),
+                MessageItem(TextMessage("test","hi"),true),
             ),
             messageValue = "",
             onMessageFieldChanged ={},

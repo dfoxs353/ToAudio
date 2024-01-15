@@ -1,12 +1,14 @@
 package com.example.toaudio.ui.screens.room
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.toaudio.common.EventHandler
-import com.example.toaudio.data.models.Message
+import com.example.toaudio.data.models.ConnectChatRequest
+import com.example.toaudio.data.models.TextMessage
 import com.example.toaudio.data.models.MessageItem
 import com.example.toaudio.data.models.toJson
 import com.example.toaudio.data.remote.websocket.ChatState
@@ -52,10 +54,12 @@ class RoomViewModel @Inject constructor(
                 )
             }
 
+            Log.d("WEBSOCKET", roomId)
             initChat(roomId)
         }
 
         userName = localUserRepository.getUserName()!!
+        Log.d("WEBSOCKET", userName)
     }
 
     init {
@@ -64,13 +68,33 @@ class RoomViewModel @Inject constructor(
                 when (chatState) {
                     ChatState.Error -> TODO()
                     is ChatState.Close -> TODO()
-                    is ChatState.Success -> onMessage(chatState.message)
+                    is ChatState.Message -> addMessage(chatState.message)
+                    is ChatState.MembersList -> setMemberList(chatState.membersList)
                 }
             }
         }
     }
 
-    private fun onMessage(message: Message?) {
+    private fun setMemberList(members: List<String>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _viewState.postValue(
+                _viewState.value?.copy(
+                    memberList = members,
+                )
+            )
+        }
+    }
+
+    private fun initChat(roomId: String) {
+        chatWebSocket = webSocketManager.createChatWebSocket(roomId, chatWebSocketHandle)
+        val connectMessage = ConnectChatRequest(localUserRepository.getAccessToken()!!).toJson()
+        Log.d("WEBSOCKET", connectMessage)
+
+        chatWebSocket?.send(connectMessage)
+    }
+
+
+    private fun addMessage(message: TextMessage?) {
         viewModelScope.launch(Dispatchers.IO) {
             message?.let {
                 val updatedMessageList = _viewState.value!!.messageList.toMutableList()
@@ -93,9 +117,7 @@ class RoomViewModel @Inject constructor(
         }
     }
 
-    private fun initChat(roomId: String) {
-        chatWebSocket = webSocketManager.createChatWebSocket(roomId, chatWebSocketHandle)
-    }
+
 
     override fun obtainEvent(event: RoomEvent) {
         when (event) {
@@ -118,8 +140,9 @@ class RoomViewModel @Inject constructor(
 
     private fun sendMessage() {
         viewModelScope.launch(Dispatchers.IO){
-            val message = Message(userName,_viewState.value!!.messageValue)
-            chatWebSocket?.send(message.toJson())
+            val message = TextMessage(userName,_viewState.value!!.messageValue).toJson()
+            Log.d("WEBSOCKET", message)
+            chatWebSocket?.send(message)
         }
     }
 }

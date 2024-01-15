@@ -25,7 +25,7 @@ import com.example.toaudio.ui.screens.room.views.RoomView
 @Composable
 fun RoomScreen(
     modifier: Modifier  = Modifier,
-    roomViewModel: RoomViewModel = hiltViewModel(),
+    roomViewModel: RoomViewModel,
     navController: NavController,
 ){
     val viewState = roomViewModel.viewState.observeAsState()

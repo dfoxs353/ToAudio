@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import com.example.toaudio.R
 import com.example.toaudio.ui.components.CopyText
 import com.example.toaudio.ui.components.LogoWithText
-import com.example.toaudio.data.models.Message
+import com.example.toaudio.data.models.TextMessage
 import com.example.toaudio.data.models.MessageItem
 import com.example.toaudio.ui.screens.player.models.MusicPlayerViewState
 import com.example.toaudio.ui.screens.player.views.MusicPlayerView
@@ -187,17 +187,17 @@ fun RoomView_Preview() {
     ToAudioTheme {
         RoomView(
             messageList = listOf(
-                MessageItem(Message("test", "hi"), false),
-                MessageItem(Message("test", "hi"), true),
-                MessageItem(Message("test", "hi"), false),
-                MessageItem(Message("test", "hi"), true),
-                MessageItem(Message("test", "hi"), true),
-                MessageItem(Message("test", "hi"), false),
-                MessageItem(Message("test", "hi"), true),
-                MessageItem(Message("test", "hi"), true),
-                MessageItem(Message("test", "hi"), true),
-                MessageItem(Message("test", "hi"), false),
-                MessageItem(Message("test", "hi"), true),
+                MessageItem(TextMessage("test", "hi"), false),
+                MessageItem(TextMessage("test", "hi"), true),
+                MessageItem(TextMessage("test", "hi"), false),
+                MessageItem(TextMessage("test", "hi"), true),
+                MessageItem(TextMessage("test", "hi"), true),
+                MessageItem(TextMessage("test", "hi"), false),
+                MessageItem(TextMessage("test", "hi"), true),
+                MessageItem(TextMessage("test", "hi"), true),
+                MessageItem(TextMessage("test", "hi"), true),
+                MessageItem(TextMessage("test", "hi"), false),
+                MessageItem(TextMessage("test", "hi"), true),
             ),
             messageValue = "",
             onMessageValueChanged = {},

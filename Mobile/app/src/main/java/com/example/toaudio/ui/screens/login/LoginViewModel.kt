@@ -90,6 +90,13 @@ class LoginViewModel @Inject constructor(
             )
 
 
+            when(result){
+                is Result.Error -> userRepository.clearUserData()
+                is Result.Success -> with(result.data){
+                    userRepository.saveUser(User(user.id,user.username,access_token))
+                }
+            }
+
             resultChannel.send(result)
 
             _viewState.postValue(

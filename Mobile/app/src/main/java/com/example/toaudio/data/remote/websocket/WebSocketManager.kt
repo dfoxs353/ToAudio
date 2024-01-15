@@ -15,7 +15,7 @@ class WebSocketManager @Inject constructor(
 
 
     fun createChatWebSocket(socketId: String, listener: WebSocketListener): WebSocket {
-        val url = "$baseUrl/$socketId/${WebSocketRoot.Chat.route}"
+        val url = "${baseUrl}ws/$socketId/${WebSocketRoot.Chat.route}"
         Log.d("WEBSOCKET", url)
         val request = Request.Builder().url(url).build()
         return okHttpClient.newWebSocket(request, listener)
@@ -23,7 +23,7 @@ class WebSocketManager @Inject constructor(
 
 
     fun createFileWebSocket(socketId: String, listener: WebSocketListener): WebSocket {
-        val url = "$baseUrl/$socketId/${WebSocketRoot.File.route}"
+        val url = "$baseUrl$socketId/${WebSocketRoot.File.route}"
         Log.d("WEBSOCKET", url)
         val request = Request.Builder().url(url).build()
         return okHttpClient.newWebSocket(request, listener)

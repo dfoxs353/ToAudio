@@ -3,15 +3,16 @@ package com.example.toaudio.ui.screens
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.toaudio.ui.navigation.NavigationArgs
 import com.example.toaudio.ui.navigation.NavigationTree
 import com.example.toaudio.ui.screens.login.LoginScreen
 import com.example.toaudio.ui.screens.login.LoginViewModel
@@ -49,14 +50,16 @@ fun ApplicationScreen(){
             )
         }
         composable(
-            "${NavigationTree.Room.route}/{roomId}",
-            arguments = listOf(navArgument("roomId"){type = NavType.StringType})
+            "${NavigationTree.Room.route}/{${NavigationArgs.RoomId.name}}",
         ){
+            val roomViewModel = hiltViewModel<RoomViewModel>()
+
             RoomScreen(
                 modifier = Modifier
-                    .padding(horizontal = 20.dp)
+                    .padding(top = 20.dp)
                     .fillMaxSize(),
                 navController = navController,
+                roomViewModel = roomViewModel
             )
         }
 

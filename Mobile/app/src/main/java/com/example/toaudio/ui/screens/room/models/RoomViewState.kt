@@ -1,6 +1,5 @@
 package com.example.toaudio.ui.screens.room.models
 
-import com.example.toaudio.data.models.Member
 import com.example.toaudio.data.models.MessageItem
 
 enum class RoomSubState{
@@ -9,7 +8,7 @@ enum class RoomSubState{
 data class RoomViewState(
     val roomSubState: RoomSubState = RoomSubState.MemberRoom,
     val roomId: String = "",
-    val memberList: List<Member> = listOf(),
+    val memberList: List<String> = listOf(),
     val messageList: List<MessageItem> = listOf(),
     val messageValue: String = "",
 )
