@@ -120,6 +120,12 @@ class RoomViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO){
             val message = Message(userName,_viewState.value!!.messageValue)
             chatWebSocket?.send(message.toJson())
+
+            _viewState.postValue(
+                _viewState.value?.copy(
+                    messageValue = ""
+                )
+            )
         }
     }
 }
