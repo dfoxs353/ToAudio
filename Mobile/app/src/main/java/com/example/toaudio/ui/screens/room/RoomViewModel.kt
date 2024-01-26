@@ -36,9 +36,6 @@ class RoomViewModel @Inject constructor(
     private val _viewState = MutableLiveData(RoomViewState())
     val viewState: LiveData<RoomViewState> = _viewState
 
-    private val _musicPlayerState = MutableLiveData(MusicPlayerViewState())
-    val musicPlayerState: LiveData<MusicPlayerViewState> = _musicPlayerState
-
     private var chatWebSocket: WebSocket? = null
     private val chatWebSocketHandle = ChatWebSocketHandler()
 

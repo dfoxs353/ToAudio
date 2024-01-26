@@ -2,7 +2,10 @@ package com.example.toaudio.player.service
 
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.hls.HlsMediaSource
+import androidx.media3.exoplayer.source.MediaSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -13,6 +16,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@UnstableApi
 class ToAudioServiceHandler @Inject constructor(
     private val exoPlayer: ExoPlayer,
 ) : Player.Listener {
@@ -24,6 +28,11 @@ class ToAudioServiceHandler @Inject constructor(
 
     init {
         exoPlayer.addListener(this)
+    }
+
+    fun setMediaSource(mediaSource: MediaSource){
+        exoPlayer.setMediaSource(mediaSource)
+        exoPlayer.prepare()
     }
 
     fun addMediaItem(mediaItem: MediaItem) {

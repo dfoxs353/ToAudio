@@ -21,6 +21,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,12 +34,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.toaudio.R
 import com.example.toaudio.ui.components.CopyText
 import com.example.toaudio.ui.components.LogoWithText
 import com.example.toaudio.data.models.TextMessage
 import com.example.toaudio.data.models.MessageItem
-import com.example.toaudio.data.remote.websocket.ChatState
+import com.example.toaudio.ui.screens.player.MusicPlayerViewModel
 import com.example.toaudio.ui.screens.player.models.MusicPlayerViewState
 import com.example.toaudio.ui.screens.player.views.MusicPlayerView
 import com.example.toaudio.ui.theme.ToAudioTheme
@@ -52,135 +54,102 @@ fun RoomView(
     messageList: List<MessageItem>,
     membersList: List<String> = listOf(),
     messageValue: String,
-    musicPlayerViewState: MusicPlayerViewState,
     onMessageValueChanged: (String) -> Unit,
     sendMessageClick: () -> Unit,
     roomId: String,
 ) {
+    val context = LocalContext.current
 
     var isChatFullScreen by remember { mutableStateOf(false) }
     var isMembersFullScreen by remember { mutableStateOf(false) }
 
-    val sheetState = rememberBottomSheetState(
-        initialValue = BottomSheetValue.Collapsed
-    )
-    val scaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = sheetState
-    )
-
-    val scope = rememberCoroutineScope()
-
-    val context = LocalContext.current
-
-    BottomSheetScaffold(
-        scaffoldState = scaffoldState,
-        sheetPeekHeight = BottomSheetScaffoldDefaults.SheetPeekHeight,
-        sheetContent = {
-
-            MusicPlayerView(
-                sheetState = sheetState,
-                scaffoldState = scaffoldState,
-                scope = scope,
-                playerState = musicPlayerViewState,
-                onForwardClick = { /*TODO*/ },
-                onBackwardClick = { /*TODO*/ }) {
-
-            }
-
-        },
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            modifier = modifier,
-            horizontalAlignment = Alignment.CenterHorizontally
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                IconButton(onClick = {
-                    scope.launch {
-                        sheetState.expand()
-                    }
-                }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.people),
-                        contentDescription = "my_account",
-                        tint = MaterialTheme.colorScheme.secondary,
-                    )
-                }
-                LogoWithText()
-                IconButton(onClick = { /*TODO*/ }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.sound_on),
-                        contentDescription = "sound_off",
-                        tint = MaterialTheme.colorScheme.secondary,
-                    )
-                }
-            }
-
-
-            AnimatedVisibility(
-                visible = !isChatFullScreen && !isMembersFullScreen,
-                enter = expandVertically() + fadeIn(),
-                exit = shrinkVertically() + fadeOut(),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp)
-                ) {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 15.dp),
-                        text = stringResource(id = R.string.link),
-                        style = MaterialTheme.typography.titleSmall,
-                    )
-
-                    CopyText(context = context, textValue = roomId, labelValue = "Room Id")
-                }
-            }
-
-            AnimatedVisibility(
-                visible = !isChatFullScreen,
-                enter = expandVertically() + fadeIn(),
-                exit = shrinkVertically() + fadeOut(),
-            ) {
-
-                MembersView(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .padding(vertical = 20.dp, horizontal = 20.dp),
-                    fullScreenClick = {
-                        isMembersFullScreen = !isMembersFullScreen
-                    },
-                    isMembersFullScreen = isMembersFullScreen,
-                    membersList = membersList,
-                )
-
-            }
-
-            AnimatedVisibility(
-                modifier = Modifier.padding(bottom = 56.dp),
-                visible = !isMembersFullScreen,
-                enter = expandVertically() + fadeIn(),
-                exit = shrinkVertically() + fadeOut(),
-            ) {
-                ChatView(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .padding(vertical = 20.dp, horizontal = 20.dp),
-                    messageList = messageList,
-                    messageValue = messageValue,
-                    onMessageFieldChanged = onMessageValueChanged,
-                    sendMessageClick = sendMessageClick,
-                    fullScreenClick = {
-                        isChatFullScreen = !isChatFullScreen
-                    },
+            IconButton(onClick = {}) {
+                Icon(
+                    painter = painterResource(id = R.drawable.people),
+                    contentDescription = "my_account",
+                    tint = MaterialTheme.colorScheme.secondary,
                 )
             }
+            LogoWithText()
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.sound_on),
+                    contentDescription = "sound_off",
+                    tint = MaterialTheme.colorScheme.secondary,
+                )
+            }
+        }
+
+
+        AnimatedVisibility(
+            visible = !isChatFullScreen && !isMembersFullScreen,
+            enter = expandVertically() + fadeIn(),
+            exit = shrinkVertically() + fadeOut(),
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+            ) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 15.dp),
+                    text = stringResource(id = R.string.link),
+                    style = MaterialTheme.typography.titleSmall,
+                )
+
+                CopyText(context = context, textValue = roomId, labelValue = "Room Id")
+            }
+        }
+
+        AnimatedVisibility(
+            visible = !isChatFullScreen,
+            enter = expandVertically() + fadeIn(),
+            exit = shrinkVertically() + fadeOut(),
+        ) {
+
+            MembersView(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .padding(vertical = 20.dp, horizontal = 20.dp),
+                fullScreenClick = {
+                    isMembersFullScreen = !isMembersFullScreen
+                },
+                isMembersFullScreen = isMembersFullScreen,
+                membersList = membersList,
+            )
+
+        }
+
+        AnimatedVisibility(
+            modifier = Modifier.padding(bottom = 56.dp),
+            visible = !isMembersFullScreen,
+            enter = expandVertically() + fadeIn(),
+            exit = shrinkVertically() + fadeOut(),
+        ) {
+            ChatView(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .padding(vertical = 20.dp, horizontal = 20.dp),
+                messageList = messageList,
+                messageValue = messageValue,
+                onMessageFieldChanged = onMessageValueChanged,
+                sendMessageClick = sendMessageClick,
+                fullScreenClick = {
+                    isChatFullScreen = !isChatFullScreen
+                },
+            )
         }
     }
 }
@@ -207,10 +176,6 @@ fun RoomView_Preview() {
             onMessageValueChanged = {},
             sendMessageClick = {},
             roomId = "sasafsaf",
-            musicPlayerViewState = MusicPlayerViewState(
-                title = "Title",
-                author = "Author",
-            )
         )
     }
 }
