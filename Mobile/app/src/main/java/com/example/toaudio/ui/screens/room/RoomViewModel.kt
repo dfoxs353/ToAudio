@@ -137,15 +137,8 @@ class RoomViewModel @Inject constructor(
 
     private fun sendMessage() {
         viewModelScope.launch(Dispatchers.IO){
-            val message = TextMessage(userName,_viewState.value!!.messageValue).toJson()
-            Log.d("WEBSOCKET", message)
-            chatWebSocket?.send(message)
-
-            _viewState.postValue(
-                _viewState.value?.copy(
-                    messageValue = "",
-                )
-            )
+            val message = Message(userName,_viewState.value!!.messageValue)
+            chatWebSocket?.send(message.toJson())
         }
     }
 }
