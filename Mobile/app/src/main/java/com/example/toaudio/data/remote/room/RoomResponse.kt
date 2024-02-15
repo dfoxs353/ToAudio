@@ -1,9 +1,15 @@
 package com.example.toaudio.data.remote.room
 
-data class RoomResult(
-    val success: RoomResponse? = null,
-    val error: Int? = null
-)
+import com.example.toaudio.domain.models.Room
+
+
 data class RoomResponse(
     val roomId:String,
 )
+
+internal fun RoomResponse.toRoom() : Room {
+    return Room(
+        roomId = this.roomId,
+    )
+}
+

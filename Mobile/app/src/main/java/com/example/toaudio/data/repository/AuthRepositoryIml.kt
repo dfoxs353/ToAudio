@@ -5,22 +5,25 @@ import com.example.toaudio.data.remote.auth.AuthApi
 import com.example.toaudio.data.remote.auth.AuthResponse
 import com.example.toaudio.data.remote.auth.UserLoginRequest
 import com.example.toaudio.data.remote.auth.UserRegistrationRequest
-import com.example.toaudio.data.models.Result
+import com.example.toaudio.data.remote.auth.toUser
+import com.example.toaudio.domain.models.Result
+import com.example.toaudio.domain.models.User
+import com.example.toaudio.domain.repository.AuthRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-class AuthRepository(
+class AuthRepositoryIml(
     private val authDataSource: AuthApi,
     private val ioDispatcher: CoroutineDispatcher,
-) {
+) : AuthRepository {
 
-    suspend fun signin(username: String, password: String): Result<AuthResponse> {
+    override suspend fun signin(username: String, password: String): Result<User> {
         return try {
             Result.Success(
                 withContext(ioDispatcher) {
                     val response = authDataSource.loginUser(UserLoginRequest(username, password))
                     response.await()
-                }
+                }.toUser()
             )
         } catch (e: Exception) {
             Log.d("TAG", e.message.toString())
@@ -28,13 +31,13 @@ class AuthRepository(
         }
     }
 
-    suspend fun signup(password: String, username: String): Result<AuthResponse> {
+    override suspend fun signup(password: String, username: String): Result<User> {
         return try {
             Result.Success(
                 withContext(ioDispatcher) {
                     val response = authDataSource.registerUser(UserRegistrationRequest(password, username))
                     response.await()
-                }
+                }.toUser()
             )
         } catch (e: Exception) {
             Log.d("TAG", e.message.toString())
@@ -43,13 +46,13 @@ class AuthRepository(
 
     }
 
-    suspend fun refresh(token: String): Result<AuthResponse>{
+    override suspend fun refresh(token: String): Result<User> {
         return try {
             Result.Success(
                 withContext(ioDispatcher) {
                     val response = authDataSource.refresh()
                     response.await()
-                }
+                }.toUser()
             )
         } catch (e: Exception) {
             Log.d("TAG", e.message.toString())

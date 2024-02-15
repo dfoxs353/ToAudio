@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.toaudio.R
-import com.example.toaudio.data.models.Result
+import com.example.toaudio.domain.models.Result
 import com.example.toaudio.ui.navigation.NavigationTree
 import com.example.toaudio.ui.screens.login.models.LoginEvent
 import com.example.toaudio.ui.screens.login.models.LoginSubState

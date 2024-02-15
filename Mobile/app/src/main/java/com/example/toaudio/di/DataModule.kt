@@ -7,9 +7,12 @@ import com.example.toaudio.common.AuthInterceptor
 import com.example.toaudio.data.remote.auth.AuthApi
 import com.example.toaudio.data.remote.room.RoomApi
 import com.example.toaudio.data.remote.websocket.WebSocketManager
-import com.example.toaudio.data.repository.AuthRepository
-import com.example.toaudio.data.repository.RoomRepository
-import com.example.toaudio.data.repository.LocalUserRepository
+import com.example.toaudio.data.repository.AuthRepositoryIml
+import com.example.toaudio.data.repository.RoomRepositoryImpl
+import com.example.toaudio.data.repository.LocalUserRepositoryImpl
+import com.example.toaudio.domain.repository.AuthRepository
+import com.example.toaudio.domain.repository.LocalUserRepository
+import com.example.toaudio.domain.repository.RoomRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -35,7 +38,7 @@ class DataModule {
     @Provides
     @Singleton
     fun provideLocalUserRepository(sharedPreferences: SharedPreferences): LocalUserRepository {
-        return LocalUserRepository(sharedPreferences)
+        return LocalUserRepositoryImpl(sharedPreferences)
     }
 
     @Provides
@@ -47,12 +50,12 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideAuthInterceptor(tokenManager: LocalUserRepository): AuthInterceptor =
+    fun provideAuthInterceptor(tokenManager: LocalUserRepositoryImpl): AuthInterceptor =
         AuthInterceptor(tokenManager)
 
     @Singleton
     @Provides
-    fun provideAuthAuthenticator(tokenManager: LocalUserRepository): AuthAuthenticator =
+    fun provideAuthAuthenticator(tokenManager: LocalUserRepositoryImpl): AuthAuthenticator =
         AuthAuthenticator(tokenManager,baseUrl)
 
     @Singleton
@@ -106,7 +109,7 @@ class DataModule {
     @Singleton
     @Provides
     fun provideRoomRepository(roomApi: RoomApi): RoomRepository {
-        return RoomRepository(roomApi, Dispatchers.IO)
+        return RoomRepositoryImpl(roomApi, Dispatchers.IO)
     }
 
     @Singleton
@@ -122,6 +125,6 @@ class DataModule {
     @Provides
     @Singleton
     fun provideRemoteAuthRepository(authApi: AuthApi): AuthRepository {
-        return AuthRepository(authApi, Dispatchers.IO)
+        return AuthRepositoryIml(authApi, Dispatchers.IO)
     }
 }

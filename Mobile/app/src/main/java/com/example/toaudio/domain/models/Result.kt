@@ -1,4 +1,4 @@
-package com.example.toaudio.data.models
+package com.example.toaudio.domain.models
 
 sealed class Result<out T : Any> {
 

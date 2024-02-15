@@ -9,14 +9,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.toaudio.common.EventHandler
 import com.example.toaudio.data.models.ConnectChatRequest
 import com.example.toaudio.data.models.TextMessage
-import com.example.toaudio.data.models.MessageItem
+import com.example.toaudio.domain.models.MessageItem
 import com.example.toaudio.data.models.toJson
 import com.example.toaudio.data.remote.websocket.ChatState
 import com.example.toaudio.data.remote.websocket.ChatWebSocketHandler
 import com.example.toaudio.data.remote.websocket.WebSocketManager
-import com.example.toaudio.data.repository.LocalUserRepository
+import com.example.toaudio.data.repository.LocalUserRepositoryImpl
+import com.example.toaudio.domain.repository.LocalUserRepository
 import com.example.toaudio.ui.navigation.NavigationArgs
-import com.example.toaudio.ui.screens.player.models.MusicPlayerViewState
 import com.example.toaudio.ui.screens.room.models.RoomEvent
 import com.example.toaudio.ui.screens.room.models.RoomViewState
 import dagger.hilt.android.lifecycle.HiltViewModel

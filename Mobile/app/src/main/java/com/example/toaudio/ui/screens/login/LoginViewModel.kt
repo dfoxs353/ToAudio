@@ -5,11 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.toaudio.common.EventHandler
-import com.example.toaudio.data.models.User
-import com.example.toaudio.data.models.Result
+import com.example.toaudio.domain.models.User
+import com.example.toaudio.domain.models.Result
 import com.example.toaudio.data.remote.auth.AuthResponse
-import com.example.toaudio.data.repository.AuthRepository
-import com.example.toaudio.data.repository.LocalUserRepository
+import com.example.toaudio.data.repository.AuthRepositoryIml
+import com.example.toaudio.data.repository.LocalUserRepositoryImpl
+import com.example.toaudio.domain.repository.AuthRepository
+import com.example.toaudio.domain.repository.LocalUserRepository
 import com.example.toaudio.ui.screens.login.models.LoginEvent
 import com.example.toaudio.ui.screens.login.models.LoginSubState
 import com.example.toaudio.ui.screens.login.models.LoginViewState
@@ -29,7 +31,7 @@ class LoginViewModel @Inject constructor(
     private val _viewState = MutableLiveData(LoginViewState())
     val viewState: LiveData<LoginViewState>  = _viewState
 
-    private val resultChannel = Channel<Result<AuthResponse>>()
+    private val resultChannel = Channel<Result<User>>()
     val authResults = resultChannel.receiveAsFlow()
 
 
@@ -66,7 +68,7 @@ class LoginViewModel @Inject constructor(
            when(result){
                is Result.Error -> userRepository.clearUserData()
                is Result.Success -> with(result.data){
-                   userRepository.saveUser(User(user.id,user.username,access_token))
+                   userRepository.saveUser(this)
                }
            }
 
@@ -93,7 +95,7 @@ class LoginViewModel @Inject constructor(
             when(result){
                 is Result.Error -> userRepository.clearUserData()
                 is Result.Success -> with(result.data){
-                    userRepository.saveUser(User(user.id,user.username,access_token))
+                    userRepository.saveUser(this)
                 }
             }
 

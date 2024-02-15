@@ -1,13 +1,13 @@
 package com.example.toaudio.common
 
-import com.example.toaudio.data.repository.LocalUserRepository
+import com.example.toaudio.data.repository.LocalUserRepositoryImpl
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor(
-    private val userRepository: LocalUserRepository
+    private val userRepository: LocalUserRepositoryImpl
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val token = runBlocking {

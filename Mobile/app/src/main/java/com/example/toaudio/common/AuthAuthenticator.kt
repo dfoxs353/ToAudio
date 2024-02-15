@@ -3,9 +3,9 @@ package com.example.toaudio.common
 import android.util.Log
 import com.example.toaudio.data.remote.auth.AuthApi
 import com.example.toaudio.data.remote.auth.AuthResponse
-import com.example.toaudio.data.repository.LocalUserRepository
+import com.example.toaudio.data.repository.LocalUserRepositoryImpl
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.example.toaudio.data.models.Result
+import com.example.toaudio.domain.models.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -21,7 +21,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 class AuthAuthenticator @Inject constructor(
-    private val userRepository: LocalUserRepository,
+    private val userRepository: LocalUserRepositoryImpl,
     private val baseUrl: String,
 ) : Authenticator {
 

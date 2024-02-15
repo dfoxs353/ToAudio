@@ -30,7 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.toaudio.R
 import com.example.toaudio.data.models.TextMessage
-import com.example.toaudio.data.models.MessageItem
+import com.example.toaudio.domain.models.MessageItem
 import com.example.toaudio.ui.theme.ToAudioTheme
 
 

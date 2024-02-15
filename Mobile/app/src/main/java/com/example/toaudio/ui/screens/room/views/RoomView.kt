@@ -10,22 +10,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomSheetScaffold
-import androidx.compose.material.BottomSheetScaffoldDefaults
-import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.rememberBottomSheetScaffoldState
-import androidx.compose.material.rememberBottomSheetState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,17 +27,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.toaudio.R
 import com.example.toaudio.ui.components.CopyText
 import com.example.toaudio.ui.components.LogoWithText
 import com.example.toaudio.data.models.TextMessage
-import com.example.toaudio.data.models.MessageItem
-import com.example.toaudio.ui.screens.player.MusicPlayerViewModel
-import com.example.toaudio.ui.screens.player.models.MusicPlayerViewState
-import com.example.toaudio.ui.screens.player.views.MusicPlayerView
+import com.example.toaudio.domain.models.MessageItem
 import com.example.toaudio.ui.theme.ToAudioTheme
-import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterialApi::class)

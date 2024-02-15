@@ -1,6 +1,6 @@
 package com.example.toaudio.ui.screens.room.models
 
-import com.example.toaudio.data.models.MessageItem
+import com.example.toaudio.domain.models.MessageItem
 
 enum class RoomSubState{
     OwnerRoom,MemberRoom,TrackList
