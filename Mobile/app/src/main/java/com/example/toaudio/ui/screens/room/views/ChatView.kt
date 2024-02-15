@@ -29,16 +29,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.toaudio.R
-import com.example.toaudio.data.models.TextMessage
-import com.example.toaudio.domain.models.MessageItem
+import com.toaudio.domain.models.MessageItem
 import com.example.toaudio.ui.theme.ToAudioTheme
+import com.toaudio.domain.models.TextMessage
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatView(
     modifier: Modifier = Modifier,
-    messageList: List<MessageItem>,
+    messageList: List<com.toaudio.domain.models.MessageItem>,
     messageValue: String,
     onMessageFieldChanged: (String) -> Unit,
     sendMessageClick: () -> Unit,
@@ -117,7 +117,7 @@ fun ChatView(
 @Composable
 fun MessageCard(
     modifier: Modifier = Modifier,
-    messageItem: MessageItem
+    messageItem: com.toaudio.domain.models.MessageItem
 ){
     with(messageItem){
         Column(
@@ -176,17 +176,27 @@ fun ChatView_Preview(){
                 .height(400.dp)
                 .padding(44.dp),
             messageList = listOf(
-                MessageItem(TextMessage("test","hi"),false),
-                MessageItem(TextMessage("test","hi"),true),
-                MessageItem(TextMessage("test","hi"),false),
-                MessageItem(TextMessage("test","hi"),true),
-                MessageItem(TextMessage("test","hi"),true),
-                MessageItem(TextMessage("test","hi"),false),
-                MessageItem(TextMessage("test","hi"),true),
-                MessageItem(TextMessage("test","hi"),true),
-                MessageItem(TextMessage("test","hi"),true),
-                MessageItem(TextMessage("test","hi"),false),
-                MessageItem(TextMessage("test","hi"),true),
+                MessageItem(
+                    TextMessage(
+                        "test",
+                        "hi"
+                    ), false),
+                MessageItem(
+                    TextMessage(
+                        "test",
+                        "hi"
+                    ), false),
+                MessageItem(
+                    TextMessage(
+                        "test",
+                        "hi"
+                    ), false),
+                MessageItem(
+                    TextMessage(
+                        "test",
+                        "hi"
+                    ), false
+                ),
             ),
             messageValue = "",
             onMessageFieldChanged ={},

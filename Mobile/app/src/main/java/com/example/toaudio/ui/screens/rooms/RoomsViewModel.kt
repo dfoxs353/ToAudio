@@ -5,12 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.toaudio.common.EventHandler
-import com.example.toaudio.domain.models.Result
-import com.example.toaudio.data.remote.room.RoomResponse
-import com.example.toaudio.data.repository.RoomRepositoryImpl
-import com.example.toaudio.domain.models.Room
+import com.toaudio.domain.models.Result
+import com.toaudio.domain.models.Room
 import com.example.toaudio.ui.screens.rooms.models.RoomsEvent
 import com.example.toaudio.ui.screens.rooms.models.RoomsViewState
+import com.toaudio.domain.repository.RoomRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -20,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RoomsViewModel @Inject constructor(
-    private val roomRepository: RoomRepositoryImpl,
+    private val roomRepository: RoomRepository,
 ) : ViewModel(), EventHandler<RoomsEvent> {
 
     private val _viewState = MutableLiveData(RoomsViewState())

@@ -7,18 +7,15 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.toaudio.common.EventHandler
-import com.example.toaudio.data.models.ConnectChatRequest
-import com.example.toaudio.data.models.TextMessage
-import com.example.toaudio.domain.models.MessageItem
-import com.example.toaudio.data.models.toJson
-import com.example.toaudio.data.remote.websocket.ChatState
-import com.example.toaudio.data.remote.websocket.ChatWebSocketHandler
-import com.example.toaudio.data.remote.websocket.WebSocketManager
-import com.example.toaudio.data.repository.LocalUserRepositoryImpl
-import com.example.toaudio.domain.repository.LocalUserRepository
+import com.toaudio.domain.models.MessageItem
+import com.toparty.data.models.toJson
 import com.example.toaudio.ui.navigation.NavigationArgs
 import com.example.toaudio.ui.screens.room.models.RoomEvent
 import com.example.toaudio.ui.screens.room.models.RoomViewState
+import com.toaudio.domain.models.TextMessage
+import com.toaudio.domain.repository.LocalUserRepository
+import com.toparty.data.remote.websocket.ChatWebSocketHandler
+import com.toparty.data.remote.websocket.WebSocketManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -63,10 +60,10 @@ class RoomViewModel @Inject constructor(
         viewModelScope.launch {
             chatWebSocketHandle.chatState.collectLatest { chatState ->
                 when (chatState) {
-                    ChatState.Error -> TODO()
-                    is ChatState.Close -> TODO()
-                    is ChatState.Message -> addMessage(chatState.message)
-                    is ChatState.MembersList -> setMemberList(chatState.membersList)
+                    com.toparty.data.remote.websocket.ChatState.Error -> TODO()
+                    is com.toparty.data.remote.websocket.ChatState.Close -> TODO()
+                    is com.toparty.data.remote.websocket.ChatState.Message -> addMessage(chatState.message)
+                    is com.toparty.data.remote.websocket.ChatState.MembersList -> setMemberList(chatState.membersList)
                 }
             }
         }
@@ -84,7 +81,8 @@ class RoomViewModel @Inject constructor(
 
     private fun initChat(roomId: String) {
         chatWebSocket = webSocketManager.createChatWebSocket(roomId, chatWebSocketHandle)
-        val connectMessage = ConnectChatRequest(localUserRepository.getAccessToken()!!).toJson()
+        val connectMessage = com.toparty.data.models.ConnectChatRequest(localUserRepository.getAccessToken()!!)
+            .toJson()
         Log.d("WEBSOCKET", connectMessage)
 
         chatWebSocket?.send(connectMessage)
@@ -137,7 +135,8 @@ class RoomViewModel @Inject constructor(
 
     private fun sendMessage() {
         viewModelScope.launch(Dispatchers.IO){
-            val message = TextMessage(userName,_viewState.value!!.messageValue)
+            val message =
+                com.toparty.data.models.TextMessage(userName, _viewState.value!!.messageValue)
             chatWebSocket?.send(message.toJson())
 
             _viewState.postValue(

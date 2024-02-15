@@ -57,6 +57,7 @@ class MediaModule {
         exoPlayer = player
     )
 
+    @UnstableApi
     @Provides
     @Singleton
     fun provideServiceHandler(exoPlayer: ExoPlayer): ToAudioServiceHandler =

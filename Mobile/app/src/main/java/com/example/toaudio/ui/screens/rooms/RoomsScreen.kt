@@ -12,7 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.toaudio.R
-import com.example.toaudio.domain.models.Result
+import com.toaudio.domain.models.Result
 import com.example.toaudio.ui.navigation.NavigationTree
 import com.example.toaudio.ui.screens.rooms.models.RoomsEvent
 import com.example.toaudio.ui.screens.rooms.models.RoomsSubState
@@ -32,14 +32,14 @@ fun RoomsScreen(
     LaunchedEffect(roomsViewModel) {
         roomsViewModel.resultChannel.collect{result ->
             when(result){
-                is Result.Error -> {
+                is com.toaudio.domain.models.Result.Error -> {
                     Toast.makeText(
                         context,
                         "$errorText",
                         Toast.LENGTH_LONG
                     ).show()
                 }
-                is Result.Success -> {
+                is com.toaudio.domain.models.Result.Success -> {
                     navController.navigate(NavigationTree.Room.route + "/${result.data.roomId}")
                 }
             }

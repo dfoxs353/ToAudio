@@ -30,16 +30,16 @@ import androidx.compose.ui.unit.dp
 import com.example.toaudio.R
 import com.example.toaudio.ui.components.CopyText
 import com.example.toaudio.ui.components.LogoWithText
-import com.example.toaudio.data.models.TextMessage
-import com.example.toaudio.domain.models.MessageItem
 import com.example.toaudio.ui.theme.ToAudioTheme
+import com.toaudio.domain.models.MessageItem
+import com.toaudio.domain.models.TextMessage
 
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun RoomView(
     modifier: Modifier = Modifier,
-    messageList: List<MessageItem>,
+    messageList: List<com.toaudio.domain.models.MessageItem>,
     membersList: List<String> = listOf(),
     messageValue: String,
     onMessageValueChanged: (String) -> Unit,
@@ -148,17 +148,36 @@ fun RoomView_Preview() {
     ToAudioTheme {
         RoomView(
             messageList = listOf(
-                MessageItem(TextMessage("test", "hi"), false),
-                MessageItem(TextMessage("test", "hi"), true),
-                MessageItem(TextMessage("test", "hi"), false),
-                MessageItem(TextMessage("test", "hi"), true),
-                MessageItem(TextMessage("test", "hi"), true),
-                MessageItem(TextMessage("test", "hi"), false),
-                MessageItem(TextMessage("test", "hi"), true),
-                MessageItem(TextMessage("test", "hi"), true),
-                MessageItem(TextMessage("test", "hi"), true),
-                MessageItem(TextMessage("test", "hi"), false),
-                MessageItem(TextMessage("test", "hi"), true),
+                MessageItem(
+                   TextMessage(
+                        "test",
+                        "hi"
+                    ), false),
+                MessageItem(
+                    TextMessage(
+                        "test",
+                        "hi"
+                    ), false),
+                MessageItem(
+                    TextMessage(
+                        "test",
+                        "hi"
+                    ), false),
+                MessageItem(
+                    TextMessage(
+                        "test",
+                        "hi"
+                    ), false),
+                MessageItem(
+                    TextMessage(
+                        "test",
+                        "hi"
+                    ), false),
+                MessageItem(
+                    TextMessage(
+                        "test",
+                        "hi"
+                    ), false),
             ),
             messageValue = "",
             onMessageValueChanged = {},

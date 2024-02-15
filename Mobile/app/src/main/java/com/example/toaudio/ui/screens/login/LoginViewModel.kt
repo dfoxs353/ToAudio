@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.toaudio.common.EventHandler
-import com.example.toaudio.domain.models.User
-import com.example.toaudio.domain.models.Result
-import com.example.toaudio.data.remote.auth.AuthResponse
-import com.example.toaudio.data.repository.AuthRepositoryIml
-import com.example.toaudio.data.repository.LocalUserRepositoryImpl
-import com.example.toaudio.domain.repository.AuthRepository
-import com.example.toaudio.domain.repository.LocalUserRepository
+import com.toaudio.domain.models.User
+import com.toaudio.domain.models.Result
+import com.toparty.data.remote.auth.AuthResponse
+import com.toparty.data.repository.AuthRepositoryIml
+import com.toparty.data.repository.LocalUserRepositoryImpl
+import com.toaudio.domain.repository.AuthRepository
+import com.toaudio.domain.repository.LocalUserRepository
 import com.example.toaudio.ui.screens.login.models.LoginEvent
 import com.example.toaudio.ui.screens.login.models.LoginSubState
 import com.example.toaudio.ui.screens.login.models.LoginViewState
@@ -66,8 +66,8 @@ class LoginViewModel @Inject constructor(
            )
 
            when(result){
-               is Result.Error -> userRepository.clearUserData()
-               is Result.Success -> with(result.data){
+               is com.toaudio.domain.models.Result.Error -> userRepository.clearUserData()
+               is com.toaudio.domain.models.Result.Success -> with(result.data){
                    userRepository.saveUser(this)
                }
            }

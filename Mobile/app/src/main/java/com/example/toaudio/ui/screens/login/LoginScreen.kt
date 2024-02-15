@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.toaudio.R
-import com.example.toaudio.domain.models.Result
+import com.toaudio.domain.models.Result
 import com.example.toaudio.ui.navigation.NavigationTree
 import com.example.toaudio.ui.screens.login.models.LoginEvent
 import com.example.toaudio.ui.screens.login.models.LoginSubState
@@ -34,18 +34,18 @@ fun LoginScreen(
     LaunchedEffect(loginViewModel, context) {
         loginViewModel.authResults.collect{result ->
             when(result){
-                is Result.Error -> {
+                is com.toaudio.domain.models.Result.Error -> {
                     Toast.makeText(
                         context,
                         "$errorText",
                         Toast.LENGTH_LONG
                     ).show()
                 }
-                is Result.Success -> {
+                is com.toaudio.domain.models.Result.Success -> {
 
                     Toast.makeText(
                         context,
-                        "$welcomeText ${result.data.user.username}",
+                        "$welcomeText ${result.data.userName}",
                         Toast.LENGTH_LONG
                     ).show()
                     delay(3000L)

@@ -16,4 +16,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "ToAudio"
 include(":app")
- 
+include(":data")
+include(":domain")

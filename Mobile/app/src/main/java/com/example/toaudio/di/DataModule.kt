@@ -2,17 +2,17 @@ package com.example.toaudio.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.toaudio.common.AuthAuthenticator
-import com.example.toaudio.common.AuthInterceptor
-import com.example.toaudio.data.remote.auth.AuthApi
-import com.example.toaudio.data.remote.room.RoomApi
-import com.example.toaudio.data.remote.websocket.WebSocketManager
-import com.example.toaudio.data.repository.AuthRepositoryIml
-import com.example.toaudio.data.repository.RoomRepositoryImpl
-import com.example.toaudio.data.repository.LocalUserRepositoryImpl
-import com.example.toaudio.domain.repository.AuthRepository
-import com.example.toaudio.domain.repository.LocalUserRepository
-import com.example.toaudio.domain.repository.RoomRepository
+import com.toparty.common.AuthAuthenticator
+import com.toparty.common.AuthInterceptor
+import com.toparty.data.remote.auth.AuthApi
+import com.toparty.data.remote.room.RoomApi
+import com.toparty.data.remote.websocket.WebSocketManager
+import com.toparty.data.repository.AuthRepositoryIml
+import com.toparty.data.repository.RoomRepositoryImpl
+import com.toparty.data.repository.LocalUserRepositoryImpl
+import com.toaudio.domain.repository.AuthRepository
+import com.toaudio.domain.repository.LocalUserRepository
+import com.toaudio.domain.repository.RoomRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -37,8 +37,8 @@ class DataModule {
     }
     @Provides
     @Singleton
-    fun provideLocalUserRepository(sharedPreferences: SharedPreferences): LocalUserRepository {
-        return LocalUserRepositoryImpl(sharedPreferences)
+    fun provideLocalUserRepository(sharedPreferences: SharedPreferences): com.toaudio.domain.repository.LocalUserRepository {
+        return com.toparty.data.repository.LocalUserRepositoryImpl(sharedPreferences)
     }
 
     @Provides
@@ -51,12 +51,12 @@ class DataModule {
     @Singleton
     @Provides
     fun provideAuthInterceptor(tokenManager: LocalUserRepositoryImpl): AuthInterceptor =
-        AuthInterceptor(tokenManager)
+        com.toparty.common.AuthInterceptor(tokenManager)
 
     @Singleton
     @Provides
     fun provideAuthAuthenticator(tokenManager: LocalUserRepositoryImpl): AuthAuthenticator =
-        AuthAuthenticator(tokenManager,baseUrl)
+        com.toparty.common.AuthAuthenticator(tokenManager, baseUrl)
 
     @Singleton
     @Provides
@@ -77,7 +77,7 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideRetrofitBuilder(): Retrofit.Builder =
+    fun provideRetrofitBuilder(): Builder =
         Retrofit.Builder()
             .baseUrl(baseUrl)
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
@@ -85,7 +85,7 @@ class DataModule {
 
     @Singleton
     @Provides
-    fun provideAuthAPIService(retrofit: Retrofit.Builder): AuthApi =
+    fun provideAuthAPIService(retrofit: Builder): AuthApi =
         retrofit
             .client(
                 OkHttpClient.Builder()

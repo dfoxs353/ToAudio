@@ -56,16 +56,13 @@ android {
 
 dependencies {
 
+    implementation(project(path = ":domain"))
+    implementation(project(path = ":data"))
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.compose.material.material)
     implementation(libs.compose.material3.material3)
-
-    implementation(libs.retrofit2.retrofit)
-    implementation(libs.retrofit2.retrofit.converter.gson)
-    implementation(libs.retrofit2.kotlin.coroutines.adapter)
-    implementation(libs.okhttp3.okhttp)
-    implementation(libs.okhttp3.logging.interceptor)
 
     implementation(libs.media3)
     implementation(libs.media3.exoplayer)
@@ -87,7 +84,11 @@ dependencies {
     implementation(libs.lifecycle.compiler)
     implementation(libs.core.testing)
 
-    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.retrofit2.retrofit.converter.gson)
+    implementation(libs.retrofit2.kotlin.coroutines.adapter)
+    implementation(libs.okhttp3.okhttp)
+    implementation(libs.okhttp3.logging.interceptor)
 
     implementation(libs.coil)
 
